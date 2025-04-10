@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageContainer from '@/components/layout/PageContainer';
@@ -7,7 +8,9 @@ import { CalendarDays, User } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
+import GamificationCard from '@/components/gamification/GamificationCard';
 
+// Mock workout data
 const mockWorkouts: WorkoutType[] = [
   {
     id: '1',
@@ -32,6 +35,31 @@ const mockWorkouts: WorkoutType[] = [
     exercises: 7,
     createdAt: '2025-04-06',
     type: 'Hipertrofia',
+  },
+];
+
+// Mock gamification data
+const mockAchievements = [
+  {
+    id: '1',
+    title: 'Primeiro Treino',
+    description: 'Completou seu primeiro treino!',
+    icon: 'trophy' as const,
+    unlocked: true,
+  },
+  {
+    id: '2',
+    title: 'Sequência de 3 dias',
+    description: 'Treinou por 3 dias consecutivos',
+    icon: 'flame' as const,
+    unlocked: true,
+  },
+  {
+    id: '3',
+    title: 'Mestre do Superior',
+    description: 'Completou o treino superior 5 vezes',
+    icon: 'award' as const,
+    unlocked: false,
   },
 ];
 
@@ -99,27 +127,12 @@ const StudentDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg text-gym-purple">Progresso</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-3 gap-3">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gym-purple">3</p>
-                <p className="text-xs text-gray-500">Treinos</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gym-purple">18</p>
-                <p className="text-xs text-gray-500">Exercícios</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gym-purple">5</p>
-                <p className="text-xs text-gray-500">Semanas</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <GamificationCard 
+          totalPoints={245}
+          level={2}
+          streak={3}
+          achievements={mockAchievements}
+        />
       </div>
 
       <h2 className="text-2xl font-semibold text-gym-purple mb-6">Meus Treinos</h2>
