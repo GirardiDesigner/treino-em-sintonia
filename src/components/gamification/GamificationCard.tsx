@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Star, Trophy, Award, Flame } from 'lucide-react';
+import { Star, Trophy, Award, Flame, Medal } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 
 interface GamificationCardProps {
   totalPoints: number;
@@ -12,9 +13,10 @@ interface GamificationCardProps {
     id: string;
     title: string;
     description: string;
-    icon: 'trophy' | 'star' | 'award';
+    icon: 'trophy' | 'star' | 'award' | 'flame';
     unlocked: boolean;
   }[];
+  isFireMaster?: boolean;
 }
 
 const GamificationCard: React.FC<GamificationCardProps> = ({
@@ -22,6 +24,7 @@ const GamificationCard: React.FC<GamificationCardProps> = ({
   level,
   streak,
   achievements,
+  isFireMaster = false,
 }) => {
   // Calculate progress to next level (example: each level requires level * 100 points)
   const nextLevelPoints = (level + 1) * 100;
@@ -32,7 +35,14 @@ const GamificationCard: React.FC<GamificationCardProps> = ({
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg text-gym-purple">Sua Evolução</CardTitle>
+        <CardTitle className="text-lg text-gym-purple flex items-center gap-2">
+          Sua Evolução
+          {isFireMaster && (
+            <Badge className="bg-gradient-to-r from-orange-500 to-red-500 animate-pulse flex items-center gap-1">
+              <Flame className="h-3 w-3" /> FIRE MASTER
+            </Badge>
+          )}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-3 gap-3 mb-4">
@@ -83,6 +93,7 @@ const GamificationCard: React.FC<GamificationCardProps> = ({
                     {achievement.icon === 'trophy' && <Trophy className={`h-5 w-5 ${achievement.unlocked ? 'text-yellow-500' : 'text-gray-400'}`} />}
                     {achievement.icon === 'star' && <Star className={`h-5 w-5 ${achievement.unlocked ? 'text-gym-purple' : 'text-gray-400'}`} />}
                     {achievement.icon === 'award' && <Award className={`h-5 w-5 ${achievement.unlocked ? 'text-blue-500' : 'text-gray-400'}`} />}
+                    {achievement.icon === 'flame' && <Flame className={`h-5 w-5 ${achievement.unlocked ? 'text-orange-500' : 'text-gray-400'}`} />}
                   </div>
                   <div>
                     <p className={`text-sm font-medium ${achievement.unlocked ? '' : 'text-gray-400'}`}>{achievement.title}</p>
