@@ -53,7 +53,7 @@ const RegisterForm = () => {
         description: 'Você precisa selecionar se é professor ou aluno.',
         variant: 'destructive',
       });
-      navigate('/');
+      navigate('/role-selection');
       return;
     }
 

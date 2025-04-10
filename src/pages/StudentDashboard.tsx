@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageContainer from '@/components/layout/PageContainer';
@@ -7,6 +6,7 @@ import WorkoutList from '@/components/workouts/WorkoutList';
 import { CalendarDays, User } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/components/ui/use-toast';
 
 const mockWorkouts: WorkoutType[] = [
   {
@@ -38,13 +38,24 @@ const mockWorkouts: WorkoutType[] = [
 const StudentDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // Redirect if not authenticated or not a student
   React.useEffect(() => {
-    if (!user || user.role !== 'student') {
+    if (!user) {
       navigate('/login');
+      return;
     }
-  }, [user, navigate]);
+    
+    if (user.role !== 'student') {
+      toast({
+        title: "Acesso restrito",
+        description: "Esta página é apenas para alunos.",
+        variant: "destructive",
+      });
+      navigate('/trainer-dashboard');
+    }
+  }, [user, navigate, toast]);
 
   return (
     <PageContainer>

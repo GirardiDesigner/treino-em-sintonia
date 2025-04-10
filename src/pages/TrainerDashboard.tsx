@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageContainer from '@/components/layout/PageContainer';
@@ -9,6 +8,7 @@ import { PlusCircle, Users } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/components/ui/use-toast';
 
 const mockWorkouts: WorkoutType[] = [
   {
@@ -47,13 +47,24 @@ const TrainerDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('workouts');
+  const { toast } = useToast();
 
   // Redirect if not authenticated or not a trainer
   React.useEffect(() => {
-    if (!user || user.role !== 'trainer') {
+    if (!user) {
       navigate('/login');
+      return;
     }
-  }, [user, navigate]);
+    
+    if (user.role !== 'trainer') {
+      toast({
+        title: "Acesso restrito",
+        description: "Esta página é apenas para professores.",
+        variant: "destructive",
+      });
+      navigate('/student-dashboard');
+    }
+  }, [user, navigate, toast]);
 
   return (
     <PageContainer>

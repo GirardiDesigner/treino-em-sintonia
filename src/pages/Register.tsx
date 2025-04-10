@@ -20,10 +20,10 @@ const Register = () => {
     }
   }, [isAuthenticated, navigate, user]);
 
-  // If no role selected, redirect to home page
+  // If no role selected, redirect to role selection page
   useEffect(() => {
     if (!role && !isAuthenticated) {
-      navigate('/');
+      navigate('/role-selection');
     }
   }, [role, navigate, isAuthenticated]);
 

@@ -10,6 +10,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import RoleSelection from "./pages/RoleSelection";
 import TrainerDashboard from "./pages/TrainerDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
 import CreateWorkout from "./pages/CreateWorkout";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/role-selection" element={<RoleSelection />} />
             <Route path="/trainer-dashboard" element={<TrainerDashboard />} />
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/create-workout" element={<CreateWorkout />} />

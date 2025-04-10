@@ -43,7 +43,7 @@ const Navbar = () => {
               <Button variant="outline" onClick={() => navigate('/login')}>
                 Login
               </Button>
-              <Button onClick={() => navigate('/register')}>
+              <Button onClick={() => navigate('/role-selection')}>
                 Registrar
               </Button>
             </div>
